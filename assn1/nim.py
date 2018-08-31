@@ -3,7 +3,7 @@
 # Aaron Morgenegg, A02072659
 # 3 heap NIM game, where the person to take the last stone loses
 
-piles = (1,2,1) # Piles A, B, C
+piles = (2,2,2) # Piles A, B, C. Feel free to change these values within reason.
 
 win_cache = {}
 
@@ -19,21 +19,24 @@ def Win(piles):
         return False
     if sum(piles) == 2: # If there are 2 stones left, you win by taking 1
         win_cache[piles] = True
-        return True 
-    for pile, index in enumerate(piles): # For each pile,
-        for i in range(pile): # try removing stones until you find the right number of stones to remove to win
+        return True
+
+    for pile in range(len(piles)): # For each pile,
+        for i in range(1, piles[pile]): # try removing stones until you find the right number of stones to remove to win
             A = piles[0]
             B = piles[1]
             C = piles[2]
-            if index == 0: A -= pile
-            elif index ==1: B -= pile
-            else: C -= pile
-            simpler_pile = (A, B, C)
-            if not Win(simpler_pile): 
+            if pile == 0: A -= i
+            elif pile == 1: B -= i
+            else: C -= i
+            simpler_piles = (A, B, C)
+            if Win(simpler_piles) == False: 
                 win_cache[piles] = True
                 return True
+
     win_cache[piles] = False
     return False
 
-print(Win(piles))
+print('Win{}={}'.format(piles, Win(piles)))
+
 

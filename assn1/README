@@ -1,0 +1,8 @@
+Pseudo code provided in pseudo_code.txt
+
+Actual python3 code provided in nim.py. Feel free to change the value of the piles tuple. It does some memoization, but still don't make it too big.
+
+Run the code with 
+
+	python nim.py
+

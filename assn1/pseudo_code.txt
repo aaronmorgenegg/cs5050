@@ -1,0 +1,12 @@
+Aaron Morgenegg, A02072569
+Pseudo-Code for 3 pile Nim
+
+def Win(A, B, C):
+	if NumberOfStones == 1: # You lose if there is 1 stone left
+		return False
+	if NumberOfStones == 2: # You win by taking 1 if there are 2 stones left 
+		return True
+	
+	# After making a move on one of the piles, check if your opponent can win
+	return !(Win(A-X, B, C) or Win(A, B-X, C) or Win(A, B, C-X)) # Where X is the set of all possible values you can remove from a given pile, ie 1,2,3...A-1,A.
+
