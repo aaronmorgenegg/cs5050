@@ -3,7 +3,7 @@
 # Aaron Morgenegg, A02072659
 # 3 heap NIM game, where the person to take the last stone loses
 
-piles = (2,2,2) # Piles A, B, C. Feel free to change these values within reason.
+piles = (3,4,5) # Piles A, B, C. Feel free to change these values within reason.
 
 win_cache = {}
 
