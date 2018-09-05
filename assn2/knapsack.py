@@ -130,22 +130,33 @@ def TimeFunction(function, *args):
     function(*args)
     return timeit.default_timer() - start_time
 
-def GraphTimeData(nlist, time_list):
-    graph.plot(nlist, time_list)
+def GraphTimeData(nlist, time_list, average_times):
+    graph.plot(nlist, average_times, 'rx')
+    graph.xlabel("Problem Size (n)")
+    graph.ylabel("Average Runtime (s)")
+    graph.title("KnapRecursive Average Complexity")
+    graph.grid(True)
+    graph.savefig("knap_recursive_average.png")
+    graph.show()
+
+    graph.plot(nlist, time_list, 'rx')
     graph.xlabel("Problem Size (n)")
     graph.ylabel("Runtime (s)")
     graph.title("KnapRecursive Complexity")
-    graph.savefig("knap_recursive.png")
+    graph.grid(True)
+    graph.savefig("knap_recursive_raw.png")
     graph.show()
 
 def RecordTimeData():
     nlist = []
     time_list = []
+    average_times = []
     for key, value in timeData.items():
         nlist.append(key)
         time_list.append(value)
+        average_times.append(sum(value)/float(len(value)))
 
-    if GENERATE_GRAPHS: GraphTimeData(nlist, time_list)
+    if GENERATE_GRAPHS: GraphTimeData(nlist, time_list, average_times)
     else:
         print("Average Time Data:")
         for n in range(len(nlist)):
@@ -191,13 +202,12 @@ if RUN_TIMED_TESTS:
     nmin = 10
     nmax = 200
     nstep = 10
-    m = 25
+    m = 50
     function = KnapRecursive
     use_time_data = True
-    reps = 1
+    reps = 30
     
     ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps)
    
-
     RecordTimeData()
 
