@@ -35,11 +35,13 @@ def KnapMemo():
 # Tests
 ########################
 
-k1 = 4
-k2 = 6
-s = [4,3,3]
-n = len(s)
-print("Running KnapRecursive(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s))
-print("Expected result: True")
-print("Actual result: {}".format(KnapRecursive(n, k1, k2, s)))
+def TestKnapRecursive(k1, k2, s, e):
+    n = len(s)
+    print("\nRunning KnapRecursive(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s))
+    print("Expected result: {}".format(e))
+    print("Actual result: {}\n".format(KnapRecursive(n, k1, k2, s)))
+
+
+TestKnapRecursive(4, 6, [4,3,3], "True")
+TestKnapRecursive(4, 6, [4, 3, 2, 2], "False")
 
