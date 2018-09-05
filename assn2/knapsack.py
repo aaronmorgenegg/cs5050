@@ -134,6 +134,7 @@ def GraphTimeData(nlist, time_list, average_times):
     graph.plot(nlist, average_times, 'rx')
     graph.xlabel("Problem Size (n)")
     graph.ylabel("Average Runtime (s)")
+    graph.yscale("log")
     graph.title("KnapRecursive Average Complexity")
     graph.grid(True)
     graph.savefig("knap_recursive_average.png")
@@ -142,6 +143,7 @@ def GraphTimeData(nlist, time_list, average_times):
     graph.plot(nlist, time_list, 'rx')
     graph.xlabel("Problem Size (n)")
     graph.ylabel("Runtime (s)")
+    graph.yscale("log")
     graph.title("KnapRecursive Complexity")
     graph.grid(True)
     graph.savefig("knap_recursive_raw.png")
@@ -205,7 +207,7 @@ if RUN_TIMED_TESTS:
     m = 50
     function = KnapRecursive
     use_time_data = True
-    reps = 30
+    reps = 3
     
     ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps)
    
