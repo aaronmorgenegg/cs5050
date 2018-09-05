@@ -6,8 +6,8 @@
 # both recursive and memoized algorithms
 ########################
 
-RUN_SIMPLE_TESTS = True        # Toggle running simple, hardcoded tests
-RUN_SIMPLE_RANDOM_TESTS = True # Toggle running simple, random tests
+RUN_SIMPLE_TESTS = False        # Toggle running simple, hardcoded tests
+RUN_SIMPLE_RANDOM_TESTS = False # Toggle running simple, random tests
 RUN_TIMED_TESTS = True         # Toggle running repeated, timed, random tests
 
 import random
@@ -128,6 +128,11 @@ def TimeFunction(function, *args):
     function(*args)
     return timeit.default_timer() - start_time
 
+def PrintAvgTimeData():
+    for key, value in timeData.items():
+        print("n={}, average time={}".format(key, sum(value)/float(len(value))))
+
+
 ########################
 # Test Cases
 ########################
@@ -170,9 +175,9 @@ if RUN_TIMED_TESTS:
     m = 25
     function = KnapRecursive
     use_time_data = True
-    reps = 3
+    reps = 50
     
     ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps)
     
-    print(timeData)
+    PrintAvgTimeData()
 
