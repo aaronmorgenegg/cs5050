@@ -6,12 +6,14 @@
 # both recursive and memoized algorithms
 ########################
 
-RUN_SIMPLE_TESTS = False        # Toggle running simple, hardcoded tests
-RUN_SIMPLE_RANDOM_TESTS = False # Toggle running simple, random tests
+RUN_SIMPLE_TESTS = True        # Toggle running simple, hardcoded tests
+RUN_SIMPLE_RANDOM_TESTS = True # Toggle running simple, random tests
 RUN_TIMED_TESTS = True         # Toggle running repeated, timed, random tests
+GENERATE_GRAPHS = True         # Toggle whether graphs should be generated
 
 import random
 import timeit
+import matplotlib.pyplot as graph
 
 # Dictionary for memoizing data, indexed with a tuple (n, k1, k2)
 cacheValid = {}
@@ -128,9 +130,26 @@ def TimeFunction(function, *args):
     function(*args)
     return timeit.default_timer() - start_time
 
-def PrintAvgTimeData():
+def GraphTimeData(nlist, time_list):
+    graph.plot(nlist, time_list)
+    graph.xlabel("Problem Size (n)")
+    graph.ylabel("Runtime (s)")
+    graph.title("KnapRecursive Complexity")
+    graph.savefig("knap_recursive.png")
+    graph.show()
+
+def RecordTimeData():
+    nlist = []
+    time_list = []
     for key, value in timeData.items():
-        print("n={}, average time={}".format(key, sum(value)/float(len(value))))
+        nlist.append(key)
+        time_list.append(value)
+
+    if GENERATE_GRAPHS: GraphTimeData(nlist, time_list)
+    else:
+        print("Average Time Data:")
+        for n in range(len(nlist)):
+            print("n={}, average time={}".format(n, sum(time_list[n])/float(len(time_list[n]))))
 
 
 ########################
@@ -175,9 +194,10 @@ if RUN_TIMED_TESTS:
     m = 25
     function = KnapRecursive
     use_time_data = True
-    reps = 50
+    reps = 1
     
     ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps)
-    
-    PrintAvgTimeData()
+   
+
+    RecordTimeData()
 
