@@ -5,6 +5,8 @@
 # Knapsack algorithm with 2 knapsacks
 ########################
 
+import random
+
 cacheValid = {}
 
 def KnapRecursive(n, k1, k2, s):
@@ -53,32 +55,55 @@ def KnapMemo(n, k1, k2, s):
 # Tests
 ########################
 
-def TestKnapRecursive(k1, k2, s, e):
-    n = len(s)
+def TestKnapRecursive(n, k1, k2, s, e):
     print("\nRunning KnapRecursive(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s))
     print("Expected result: {}".format(e))
-    print("Actual result: {}\n".format(KnapRecursive(n, k1, k2, s)))
+    result = KnapRecursive(n, k1, k2, s)
+    print("Actual result: {}\n".format(result))
+    return result
 
-def TestKnapMemo(k1, k2, s, e):
-    n = len(s)
+def TestKnapMemo(n, k1, k2, s, e):
     print("\nRunning KnapMemo(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s))
     print("Expected result: {}".format(e))
-    print("Actual result: {}\n".format(KnapMemo(n, k1, k2, s)))
+    result = KnapMemo(n, k1, k2, s)
+    print("Actual result: {}\n".format(result))
+    return result
 
+def TestBothWithRandomData(repetitions):
+    for test in range(repetitions):
+        print("\nRunning random test number {}\n".format(test))
+        k1 = random.randint(0, 20)
+        k2 = random.randint(0, 20)
+        n = random.randint(0, 20)
+        s = []
+        for i in range(n):
+            s.append(random.randint(0,20))
+        print("Running TestBothWithRandomData(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s)) 
+        kr = KnapRecursive(n, k1, k2, s)
+        km = KnapMemo(n, k1, k2, s)
+        if kr != km: print("ERROR: Recursive and Memoized solutions differ.")
+        print("KnapRecursive={}\nKnapMemo={}\n".format(kr,km))
 
+print("------------------------------------------")
 print("Running simple tests of KnapRecursive and KnapMemo")
+print("------------------------------------------")
 
-TestKnapRecursive(4, 6, [4,3,3], "True")
-TestKnapRecursive(4, 6, [4,3,2,2], "False")
+TestKnapRecursive(3, 4, 6, [4,3,3], "True")
+TestKnapRecursive(4, 4, 6, [4,3,2,2], "False")
 
-TestKnapMemo(4, 6, [4,3,3], "True")
-TestKnapMemo(4, 6, [4,3,2,2], "False")
+TestKnapMemo(3, 4, 6, [4,3,3], "True")
+TestKnapMemo(4, 4, 6, [4,3,2,2], "False")
 
+print("------------------------------------------")
 print("Done running simple tests of KnapRecursive and KnapMemo")
-
+print("------------------------------------------")
+print("------------------------------------------")
 print("Running randomly generated tests comparing KnapRecursive and KnapMemo")
+print("------------------------------------------")
 
+TestBothWithRandomData(5)
 
+print("------------------------------------------")
 print("Done running randomly generated tests comparing KnapRecursive and KnapMemo")
-
+print("------------------------------------------")
 
