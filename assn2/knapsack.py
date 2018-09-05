@@ -6,11 +6,18 @@
 # both recursive and memoized algorithms
 ########################
 
+RUN_SIMPLE_TESTS = True        # Toggle running simple, hardcoded tests
+RUN_SIMPLE_RANDOM_TESTS = True # Toggle running simple, random tests
+RUN_TIMED_TESTS = True         # Toggle running repeated, timed, random tests
+
 import random
 import timeit
 
 # Dictionary for memoizing data, indexed with a tuple (n, k1, k2)
 cacheValid = {}
+
+# Helper dictionary to hold runtime data to be averaged.
+timeData = {}
 
 def KnapRecursive(n, k1, k2, s):
     """
@@ -89,6 +96,29 @@ def TestBothWithRandomData(repetitions):
         if kr != km: print("ERROR: Recursive and Memoized solutions differ.")
         print("KnapRecursive={}\nKnapMemo={}\n".format(kr,km))
 
+def GetRandomSizes(n, m):
+    s = []
+    for i in range(n):
+        s.append(random.randint(0, m))
+    return s
+
+def ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps):
+    """Generates random data for n and s,
+    runs the given algorithm multiple times,
+    increasing n from nmin to nmax.
+    Prints the runtime for each value of n."""
+    for test in range(reps):
+        for n in range(nmin, nmax, nstep):
+            s = GetRandomSizes(n, m)
+            print("n:{}".format(n))
+            time_result = TimeFunction(function, n, k1, k2, s)
+            print("Runtime: {}".format(time_result))
+            if use_time_data: 
+                try:
+                    timeData[n].append(time_result)
+                except KeyError:
+                    timeData[n] = [time_result]
+
 def TimeFunction(function, *args):
     """
     Function to time the runtime of another function
@@ -102,27 +132,47 @@ def TimeFunction(function, *args):
 # Test Cases
 ########################
 
+if RUN_SIMPLE_TESTS:
+    print("------------------------------------------")
+    print("Running simple tests of KnapRecursive and KnapMemo")
+    print("------------------------------------------")
+    
+    TestKnapRecursive(3, 4, 6, [4,3,3], "True")
+    TestKnapRecursive(4, 4, 6, [4,3,2,2], "False")
+    
+    TestKnapMemo(3, 4, 6, [4,3,3], "True")
+    TestKnapMemo(4, 4, 6, [4,3,2,2], "False")
+    
+    print("------------------------------------------")
+    print("Done running simple tests of KnapRecursive and KnapMemo")
+    print("------------------------------------------")
 
-print("------------------------------------------")
-print("Running simple tests of KnapRecursive and KnapMemo")
-print("------------------------------------------")
+if RUN_SIMPLE_RANDOM_TESTS:
+    print("------------------------------------------")
+    print("Running randomly generated tests comparing KnapRecursive and KnapMemo")
+    print("------------------------------------------")
+    
+    TestBothWithRandomData(5)
+    
+    print("------------------------------------------")
+    print("Done running randomly generated tests comparing KnapRecursive and KnapMemo")
+    print("------------------------------------------")
 
-TestKnapRecursive(3, 4, 6, [4,3,3], "True")
-TestKnapRecursive(4, 4, 6, [4,3,2,2], "False")
-
-TestKnapMemo(3, 4, 6, [4,3,3], "True")
-TestKnapMemo(4, 4, 6, [4,3,2,2], "False")
-
-print("------------------------------------------")
-print("Done running simple tests of KnapRecursive and KnapMemo")
-print("------------------------------------------")
-print("------------------------------------------")
-print("Running randomly generated tests comparing KnapRecursive and KnapMemo")
-print("------------------------------------------")
-
-TestBothWithRandomData(5)
-
-print("------------------------------------------")
-print("Done running randomly generated tests comparing KnapRecursive and KnapMemo")
-print("------------------------------------------")
+if RUN_TIMED_TESTS:
+    print("------------------------------------------")
+    print("Running timed tests with randomly generated data.")
+    
+    k1 = 100
+    k2 = 100
+    nmin = 10
+    nmax = 200
+    nstep = 10
+    m = 25
+    function = KnapRecursive
+    use_time_data = True
+    reps = 3
+    
+    ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps)
+    
+    print(timeData)
 
