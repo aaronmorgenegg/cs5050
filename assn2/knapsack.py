@@ -90,9 +90,7 @@ def TestBothWithRandomData(repetitions):
         k1 = random.randint(0, 20)
         k2 = random.randint(0, 20)
         n = random.randint(0, 20)
-        s = []
-        for i in range(n):
-            s.append(random.randint(0,20))
+        s = GetRandomSizes(n, 20)
         print("Running TestBothWithRandomData(n={}, k1={}, k2={}, s={})".format(n,k1,k2,s)) 
         kr = KnapRecursive(n, k1, k2, s)
         km = KnapMemo(n, k1, k2, s)
@@ -102,7 +100,7 @@ def TestBothWithRandomData(repetitions):
 def GetRandomSizes(n, m):
     s = []
     for i in range(n):
-        s.append(random.randint(0, m))
+        s.append(random.randint(1, m))
     return s
 
 def ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps):
@@ -212,7 +210,7 @@ if RUN_TIMED_TESTS:
     m = 50
     function = KnapRecursive
     use_time_data = True
-    reps = 3
+    reps = 30
    
     print("Running {} timed tests....".format(function.__name__))
     ProblemGenerator(k1, k2, nmin, nmax, nstep, m, function, use_time_data, reps) 
