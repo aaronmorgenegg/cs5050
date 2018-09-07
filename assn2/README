@@ -4,6 +4,9 @@ Install the requirements.txt file using pip.
 
 	pip install -r requirements.txt
 
+Look through the code, modify variables as desired to run 
+different kinds of tests with different parameters.
+
 Run the code with
 
 	python knapsack.py

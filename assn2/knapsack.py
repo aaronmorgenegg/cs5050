@@ -8,9 +8,9 @@
 
 RUN_SIMPLE_TESTS = True        # Toggle running simple, hardcoded tests
 RUN_SIMPLE_RANDOM_TESTS = True # Toggle running simple, random tests
-RUN_TIMED_TESTS = True         # Toggle running repeated, timed, random tests
+RUN_TIMED_TESTS = False        # Toggle running repeated, timed, random tests. This will (potentially) take a long time to run
 GENERATE_GRAPHS = True         # Toggle whether graphs should be generated
-SHOW_GRAPHS = False             # Toggle whether graphs should be shown once generated, in addition to being saved as png files
+SHOW_GRAPHS = True             # Toggle whether graphs should be shown once generated, in addition to being saved as png files
 
 import random
 import timeit
