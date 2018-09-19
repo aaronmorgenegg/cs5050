@@ -1,0 +1,9 @@
+Verify Python3 is installed on your system
+
+Look through the code, modify variables as desired to run 
+different kinds of tests with different parameters.
+
+Run the code with
+
+	python dna.py
+
