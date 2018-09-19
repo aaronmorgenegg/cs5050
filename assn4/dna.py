@@ -55,12 +55,31 @@ class DNAMatcher:
             self.cache[0][j] = self.D*j
         for i in range(1, len(self.A)):
             for j in range(1, len(self.B)):
-                match = self.cache[i-1][j-1] + self.S["{}{}".format(self.A[i],self.B[j])]
+                match = self.cache[i-1][j-1] + self.S[self.A[i]+self.B[j]]
                 delete = self.cache[i-1][j] + self.D
                 insert = self.cache[i][j-1] + self.D
                 self.cache[i][j] = max(match, delete, insert)
         return self.cache[len(self.A)-1][len(self.B)-1]
 
     def alignment(self):
-        return ""
+        alignmentA = ""
+        alignmentB = ""
+        i = len(self.A)
+        j = len(self.B)
+        while i > 0 or j > 0:
+            if i > 0 and j > 0 and self.cache[i][j] == self.cache[i-1][j-1]+self.S[self.A[i]+self.[B[i]]:
+                alignmentA += self.A[i]
+                alignmentB += self.B[i]
+                i -= 1
+                j -= 1
+            else if i > 0 and self.cache[i][j] == self.cache[i-1][j] + self.D:
+                alignmentA += self.A[i]
+                alignmentB += "_"
+                i -= 1
+            else:
+                alignmentA += "_"
+                alignmentB += self.B[i]
+                j -= 1
+        print(alignmentA)
+        print(alignmentB)
 
