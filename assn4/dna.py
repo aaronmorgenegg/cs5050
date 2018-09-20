@@ -61,18 +61,18 @@ class DNAMatcher:
                 self.cache[i][j] = max(match, delete, insert)
         return self.cache[len(self.A)-1][len(self.B)-1]
 
-    def alignment(self):
+    def traceback(self):
         alignmentA = ""
         alignmentB = ""
-        i = len(self.A)
-        j = len(self.B)
+        i = len(self.A)-1
+        j = len(self.B)-1
         while i > 0 or j > 0:
-            if i > 0 and j > 0 and self.cache[i][j] == self.cache[i-1][j-1]+self.S[self.A[i]+self.[B[i]]:
+            if i > 0 and j > 0 and self.cache[i][j] == self.cache[i-1][j-1]+self.S[self.A[i]+self.B[i]]:
                 alignmentA += self.A[i]
                 alignmentB += self.B[i]
                 i -= 1
                 j -= 1
-            else if i > 0 and self.cache[i][j] == self.cache[i-1][j] + self.D:
+            elif i > 0 and self.cache[i][j] == self.cache[i-1][j] + self.D:
                 alignmentA += self.A[i]
                 alignmentB += "_"
                 i -= 1
@@ -80,6 +80,4 @@ class DNAMatcher:
                 alignmentA += "_"
                 alignmentB += self.B[i]
                 j -= 1
-        print(alignmentA)
-        print(alignmentB)
-
+        return (alignmentA, alignmentB)
