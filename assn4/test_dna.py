@@ -11,11 +11,11 @@ from dna import *
 
 def runTest(A, B, S=None, D=None):
     test = DNAMatcher(A, B, S=S, D=D)
-    print("Running test with\n A: {}\n B: {}\n".format(A, B))
+    print("Running test with\n  A: {}\n  B: {}".format(A, B))
     difference = test.matchDP()
     print("Difference Score: {}".format(difference))
     alignment = test.traceback()
-    print("Alignment: {}\n".format(alignment))
+    print("  Alignment A: {}\n  Alignment B: {}\n".format(alignment[0],alignment[1]))
 
 runTest("GCC","GCC")
 
