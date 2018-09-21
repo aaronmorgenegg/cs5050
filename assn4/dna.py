@@ -9,6 +9,7 @@
 import random
 
 DEBUG = False
+REVERSE_ALIGNMENT = False
 
 def getRandomString(n):
     string = ''
@@ -23,11 +24,8 @@ class DNAMatcher:
         if DEBUG: print("A: {}".format(self.A))
         if DEBUG: print("B: {}".format(self.B))
         self.cache = self.initCache() # Cache for DP
-        if DEBUG: print("Cache: {}".format(self.cache))
         self.S = self.initSimilarityMatrix(S) # Similarity Matrix
-        if DEBUG: print("S: {}".format(self.S))
         self.D = self.initGapPenalty(D) # Gap Penalty
-        if DEBUG: print("D: {}".format(self.D))
 
     def initCache(self):
         cache = []
@@ -37,15 +35,15 @@ class DNAMatcher:
 
     def initSimilarityMatrix(self, S):
         if S is None:
-            return {'AA': 10, 'AG': -1, 'AC': -3, 'AT': -4,
-                    'GA': -1, 'GG': 7, 'GC': -5, 'GT': -3,
-                    'CA': -3, 'CG': -5, 'CC': 9, 'CT': 0,
-                    'TA': -4,'TG': -3, 'TC': 0, 'TT': 9}
+            return {'AA': 5, 'AG': -2, 'AC': -1, 'AT': -1,
+                    'GA': -2, 'GG': 5, 'GC': -3, 'GT': -2,
+                    'CA': -1, 'CG': -3, 'CC': 5, 'CT': -2,
+                    'TA': -1,'TG': -2, 'TC': -2, 'TT': 5}
         return S
 
     def initGapPenalty(self, D):
         if D is None:
-            return -5
+            return -3
         return D
 
     def matchDP(self):
@@ -67,17 +65,30 @@ class DNAMatcher:
         i = len(self.A)-1
         j = len(self.B)-1
         while i > 0 or j > 0:
-            if i > 0 and j > 0 and self.cache[i][j] == self.cache[i-1][j-1]+self.S[self.A[i]+self.B[i]]:
-                alignmentA += self.A[i]
-                alignmentB += self.B[i]
+            if i > 0 and j > 0 and self.cache[i][j] == self.cache[i-1][j-1]+self.S[self.A[i]+self.B[j]]:
+                if REVERSE_ALIGNMENT:
+                    alignmentA = "{}{}".format(alignmentA,self.A[i])
+                    alignmentB = "{}{}".format(alignmentB,self.B[j])
+                else:
+                    alignmentA = "{}{}".format(self.A[i],alignmentA)
+                    alignmentB = "{}{}".format(self.B[j],alignmentB)
                 i -= 1
                 j -= 1
             elif i > 0 and self.cache[i][j] == self.cache[i-1][j] + self.D:
-                alignmentA += self.A[i]
-                alignmentB += "_"
+                if REVERSE_ALIGNMENT:
+                    alignmentA = "{}{}".format(alignmentA,self.A[i])
+                    alignmentB = "{}{}".format(alignmentB,"_")
+                else:
+                    alignmentA = "{}{}".format(self.A[i],alignmentA)
+                    alignmentB = "{}{}".format("_",alignmentB)
                 i -= 1
             else:
-                alignmentA += "_"
-                alignmentB += self.B[i]
+                if REVERSE_ALIGNMENT:
+                    alignmentA = "{}{}".format(alignmentA,"_")
+                    alignmentB = "{}{}".format(alignmentB,self.B[j])
+                else:
+                    alignmentA = "{}{}".format("_",alignmentA)
+                    alignmentB = "{}{}".format(self.B[j],alignmentB)
                 j -= 1
         return (alignmentA, alignmentB)
+

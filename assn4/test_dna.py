@@ -15,7 +15,19 @@ def runTest(A, B, S=None, D=None):
     difference = test.matchDP()
     print("Difference Score: {}".format(difference))
     alignment = test.traceback()
-    print("Alignment: {}".format(alignment))
+    print("Alignment: {}\n".format(alignment))
+
+runTest("GCC","GCC")
+
+runTest("ATGC","ATGG")
+
+runTest("ATATATA", "TATATAT")
+
+runTest("GATTACA", "GCATGCT")
+
+runTest("GCTA","GCTAATTACC")
+
+runTest("GCTAATTACC","GCTA")
 
 runTest(getRandomString(95+random.randint(0, 10)),
         getRandomString(95+random.randint(0, 10)))
