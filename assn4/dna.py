@@ -57,7 +57,8 @@ class DNAMatcher:
                 delete = self.cache[i-1][j] + self.D
                 insert = self.cache[i][j-1] + self.D
                 self.cache[i][j] = max(match, delete, insert)
-        return self.cache[len(self.A)-1][len(self.B)-1]
+        self.difference = self.cache[len(self.A)-1][len(self.B)-1]
+        return self.difference
 
     def traceback(self):
         alignmentA = ""
@@ -90,5 +91,14 @@ class DNAMatcher:
                     alignmentA = "{}{}".format("_",alignmentA)
                     alignmentB = "{}{}".format(self.B[j],alignmentB)
                 j -= 1
-        return (alignmentA, alignmentB)
+        self.alignment = (alignmentA, alignmentB)
+        return self.alignment
+
+    def printAlignmentToFile(self, output_file):
+        with open(output_file, "w") as myfile:
+            myfile.write("Difference  :{}\n".format(self.difference))
+            myfile.write("A string    :{}\n".format(self.A))
+            myfile.write("A alignment :{}\n".format(self.alignment[0]))
+            myfile.write("B string    :{}\n".format(self.B))
+            myfile.write("B alignment :{}\n\n".format(self.alignment[1]))
 

@@ -16,6 +16,7 @@ def runTest(A, B, S=None, D=None):
     print("Difference Score: {}".format(difference))
     alignment = test.traceback()
     print("  Alignment A: {}\n  Alignment B: {}\n".format(alignment[0],alignment[1]))
+    test.printAlignmentToFile("test_dna.log")
 
 runTest("GCC","GCC")
 
