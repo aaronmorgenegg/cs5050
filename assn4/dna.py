@@ -7,8 +7,9 @@
 ########################
 
 import random
+from array import array
 
-DEBUG = False
+DEBUG = True
 REVERSE_ALIGNMENT = False
 
 def getRandomString(n):
@@ -21,8 +22,6 @@ class DNAMatcher:
     def __init__(self, A, B, S=None, D=None):
         self.A = A # String A
         self.B = B # String B
-        if DEBUG: print("A: {}".format(self.A))
-        if DEBUG: print("B: {}".format(self.B))
         self.cache = self.initCache() # Cache for DP
         self.S = self.initSimilarityMatrix(S) # Similarity Matrix
         self.D = self.initGapPenalty(D) # Gap Penalty
@@ -30,7 +29,9 @@ class DNAMatcher:
     def initCache(self):
         cache = []
         for i in range(len(self.A)):
-            cache.append([None]*len(self.B))
+            cache.append(array('l'))
+            for j in range(len(self.B)):
+                cache[i].append(0)
         return cache
 
     def initSimilarityMatrix(self, S):
@@ -52,6 +53,7 @@ class DNAMatcher:
         for j in range(len(self.B)):
             self.cache[0][j] = self.D*j
         for i in range(1, len(self.A)):
+            if DEBUG and i%1000: print("Iteration {}".format(i))
             for j in range(1, len(self.B)):
                 match = self.cache[i-1][j-1] + self.S[self.A[i]+self.B[j]]
                 delete = self.cache[i-1][j] + self.D
@@ -95,7 +97,7 @@ class DNAMatcher:
         return self.alignment
 
     def printAlignmentToFile(self, output_file):
-        with open(output_file, "w") as myfile:
+        with open(output_file, "w+") as myfile:
             myfile.write("Difference  :{}\n".format(self.difference))
             myfile.write("A string    :{}\n".format(self.A))
             myfile.write("A alignment :{}\n".format(self.alignment[0]))
