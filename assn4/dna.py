@@ -53,7 +53,7 @@ class DNAMatcher:
         for j in range(len(self.B)):
             self.cache[0][j] = self.D*j
         for i in range(1, len(self.A)):
-            if DEBUG and i%1000: print("Iteration {}".format(i))
+            if DEBUG and i%1000==0: print("Iteration {}".format(i))
             for j in range(1, len(self.B)):
                 match = self.cache[i-1][j-1] + self.S[self.A[i]+self.B[j]]
                 delete = self.cache[i-1][j] + self.D

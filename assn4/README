@@ -1,5 +1,9 @@
 Verify Python3 is installed on your system
 
+pip install the dependencies
+
+	pip install -r requirements.txt
+
 Look through the code, modify variables as desired to run 
 different kinds of tests with different parameters.
 
