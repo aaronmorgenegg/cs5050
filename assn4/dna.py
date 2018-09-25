@@ -9,7 +9,7 @@
 import random
 from array import array
 
-DEBUG = True
+DEBUG = False
 REVERSE_ALIGNMENT = False
 
 def getRandomString(n):
