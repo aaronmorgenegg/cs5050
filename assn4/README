@@ -4,10 +4,19 @@ pip install the dependencies
 
 	pip install -r requirements.txt
 
-Look through the code, modify variables as desired to run 
-different kinds of tests with different parameters.
+DNA samples I used are stored in dna_samples/.
+DNA alignment data is stored in dna_alignments/.
+tables for studies 2 and 3 are stored in tables/.
 
-Run the code with
+To run the 3 studies, run
 
-	python dna.py
+	python run_study.py
+
+The results of running the studies are already stored in dna_alignments/.
+
+To convert the dna_alignments data from above into table format, run
+
+	python table.py
+
+The results of running the tables are already stored in tables/.
 
