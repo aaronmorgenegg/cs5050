@@ -33,7 +33,11 @@ def makeList(files):
             data[j][i] = difference
     return data
 
-print(makeList(["human_american_01.txt",
+def makeTable(data, files, output_file):
+    with open(output_file, 'w+') as myfile:
+        myfile.write(tabulate(table))
+
+human_study = ["human_american_01.txt",
                 "human_australia_01.txt",
                 "human_chinese_01.txt",
                 "human_egypt_01.txt",
@@ -43,5 +47,9 @@ print(makeList(["human_american_01.txt",
                 "human_japan_01.txt",
                 "human_navajo_01.txt",
                 "human_southafrica_01.txt"
-                ]))
+                ] 
+
+human_data = makeList(human_study)
+makeTable(human_data, human_study)
+
 
