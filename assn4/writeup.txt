@@ -1,0 +1,18 @@
+I ran some simple tests to see how the algorithm worked on small strings, you can run those in test_dna.py
+
+I also ran some tests with larger strings, to find the maximum size the algorithm would work on my machine.
+I found that somewhere in the 20000-30000 range my machine ran out of memory(8 gbs). The algorithm
+would have to be modifed to run at larger sizes, but it works for our purposes where the strings are around
+16000-17000 characters long.
+
+I ran all three studies - and the resulting alignments are stored in the dna_alignments directory.
+For the pairwise studies(study 2 : 10 humans, and study 3: greate apes), I created tables comparing
+their differences in a readable manner stored in the tables directory.
+
+For the second study, it seems like the South African sample is the most different from the rest, followed
+by the Navajo sample. The israel and american samples tended to have higher similarities with the other
+samples.
+
+For the third study, it seems like humans are most closely related to bonobos and chimpanzees. Gorillas
+are close behind, while baboons are quite a bit farther removed from the prototypical human.
+
