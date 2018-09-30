@@ -7,6 +7,7 @@
 ########################
 
 import random
+import timeit
 
 MIN_COEFFICIENT = -1
 MAX_COEFFICIENT = 1
@@ -38,17 +39,17 @@ class PolynomialSolver:
     def runRandomTests(self, n, num_tests):
         results = [0]*num_tests
         for i in range(num_tests):
-            results[i] = solvePolynomial(getRandomPolynomial(n), getRandomPolynomial(n))
+            results[i] = self.solvePolynomial(self.getRandomPolynomial(n), self.getRandomPolynomial(n))
 
-    def runStudy(self, n=32):
+    def runStudy(self, filename, n=32):
         while True:
             print("Running study with n = {}".format(n))
             time = TimeFunction(self.runRandomTests, n, NUM_TESTS_EACH_STEP)
             data = (n, time)
-            self.saveData(data)
+            self.saveData(data, filename)
             n *= 2
 
-    def saveData(self, data):
-        with open(data_file, "w+") as myfile:
-            myfile.write(data)
+    def saveData(self, data, filename):
+        with open(filename, "a") as myfile:
+            myfile.write(str(data[0])+","+str(data[1])+"\n")
 

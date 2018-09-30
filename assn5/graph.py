@@ -5,7 +5,13 @@ SHOW_GRAPHS = True
 def readData(filename):
     with open(filename, "r") as myfile:
         data = myfile.readlines()
-    time_data, n_data = zip(*data)
+    time_data, n_data = []
+    for i in range(len(data)):
+        s = data[i].split(",")
+        n = s[0]
+        time = s[1]
+        n_data.append(n)
+        time_data.append(time)
     return (time_data, n_data)
 
 def graphData(data, graph_name):
