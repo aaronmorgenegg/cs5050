@@ -1,0 +1,21 @@
+Verify Python3 is installed on your system
+
+pip install the dependencies
+
+	pip install -r requirements.txt
+
+To run the polynomial solver, run
+
+	python polynomial.py
+
+This will output data to schoolbook_data.txt
+
+To create a graph from this data, run
+
+	python graph.py
+
+This will output a graph to schoolbook_graph.png
+
+The program has already been run and the resulting
+files are included in the homework submission
+
