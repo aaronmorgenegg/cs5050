@@ -5,11 +5,12 @@ SHOW_GRAPHS = True
 def readData(filename):
     with open(filename, "r") as myfile:
         data = myfile.readlines()
-    time_data, n_data = []
+    time_data = []
+    n_data = []
     for i in range(len(data)):
         s = data[i].split(",")
         n = s[0]
-        time = s[1]
+        time = float(s[1])/10
         n_data.append(n)
         time_data.append(time)
     return (time_data, n_data)
@@ -25,4 +26,7 @@ def graphData(data, graph_name):
     graph.savefig("{}.png".format(graph_name))
     if(SHOW_GRAPHS): graph.show()
 
+
+schoolbook_data = readData("schoolbook_data.txt")
+graphData(schoolbook_data, "schoolbook_graph")
 
