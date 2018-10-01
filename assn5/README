@@ -4,9 +4,9 @@ pip install the dependencies
 
 	pip install -r requirements.txt
 
-To run the polynomial solver, run
+To run the empirical studies, run
 
-	python polynomial.py
+	python run_study.py
 
 This will output data to schoolbook_data.txt
 
