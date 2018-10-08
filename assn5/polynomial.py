@@ -22,6 +22,11 @@ def TimeFunction(function, *args):
     function(*args)
     return timeit.default_timer() - start_time
 
+def splitList(A):
+    B = A[:len(A)//2]
+    C = A[len(A)//2:]
+    return B, C
+
 class PolynomialSolver:
     def schoolbook(self, P, Q):
         R = [0]*(2*max(len(P), len(Q)))
@@ -29,6 +34,19 @@ class PolynomialSolver:
             for j in range(len(Q)):
                 R[i+j] = P[i] * Q[j]
         return R
+
+    def divide_conquer(self, P, Q, result=None):
+        if result is None: result = [0]*len(P)
+        P1, P2 = splitList(P)
+        Q1, Q2 = splitList(Q)
+        A = divide_conquer(P1, Q1)
+        D = divide_conquer(P2, Q2)
+        P1P2 = [sum(x) for x in zip(P1, P2)]
+        Q1Q2 = [sum(x) for x in zip(Q1, Q2)]
+        E = divide_conquer(P1P2, Q1Q2)
+        # A + (B+C)x^n/2 + Dx^n
+        return A
+        
 
     def getRandomPolynomial(self, n):
         polynomial = []
