@@ -23,7 +23,7 @@ def TimeFunction(function, *args):
     return timeit.default_timer() - start_time
 
 class PolynomialSolver:
-    def solvePolynomial(self, P, Q):
+    def schoolbook(self, P, Q):
         R = [0]*(2*max(len(P), len(Q)))
         for i in range(len(P)):
             for j in range(len(Q)):
@@ -36,15 +36,16 @@ class PolynomialSolver:
             polynomial.append(random.uniform(MIN_COEFFICIENT, MAX_COEFFICIENT))
         return polynomial
 
-    def runRandomTests(self, n, num_tests):
+    def runRandomTests(self, n, num_tests, func):
         results = [0]*num_tests
         for i in range(num_tests):
-            results[i] = self.solvePolynomial(self.getRandomPolynomial(n), self.getRandomPolynomial(n))
+            results[i] = func(self.getRandomPolynomial(n), self.getRandomPolynomial(n))
 
-    def runStudy(self, filename, n=32):
+    def runStudy(self, filename, func_code, n=32):
+        algorithm = self._lookupFuncCode(func_code)
         while True:
             print("Running study with n = {}".format(n))
-            time = TimeFunction(self.runRandomTests, n, NUM_TESTS_EACH_STEP)
+            time = TimeFunction(self.runRandomTests, n, NUM_TESTS_EACH_STEP, algorithm)
             data = (n, time)
             self.saveData(data, filename)
             n *= 2
@@ -52,4 +53,10 @@ class PolynomialSolver:
     def saveData(self, data, filename):
         with open(filename, "a") as myfile:
             myfile.write(str(data[0])+","+str(data[1])+"\n")
+
+    def _lookupFuncCode(self, func_code):
+        if func_code == 1: 
+            return self.schoolbook
+        if func_code == 2:
+            return self.divide_conquer
 
