@@ -15,18 +15,20 @@ def readData(filename):
         time_data.append(time)
     return (time_data, n_data)
 
-def graphData(data, graph_name):
-    graph.plot(data[0], data[1], 'rx')
+def graphData(data1, data2, graph_name):
+    graph.plot(data1[0], data1[1], 'rx')
+    graph.plot(data2[0], data2[1], 'rx')
     graph.xlabel("Problem Size (n)")
     graph.ylabel("Average Runtime (s)")
     graph.xscale("log")
     graph.yscale("log")
-    graph.title("Performance of Schoolbook Algorithm")
+    graph.title("Performance of Polynomial Algorithms")
     graph.grid(True)
     graph.savefig("{}.png".format(graph_name))
     if(SHOW_GRAPHS): graph.show()
 
 
 schoolbook_data = readData("schoolbook_data.txt")
-graphData(schoolbook_data, "schoolbook_graph")
+divide_conquer_data = readData("divide_conquer_data.txt")
+graphData(schoolbook_data, divide_conquer_data, "comparison_graph")
 
