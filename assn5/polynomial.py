@@ -27,25 +27,49 @@ def splitList(A):
     C = A[len(A)//2:]
     return B, C
 
+def addLists(A, B):
+    n = len(A)
+    C = [0]*n
+    for i in range(n):
+        C[i] = A[i]+B[i]
+    return C
+
+def subLists(lists):
+    n = len(lists[0])
+    C = [0]*n
+    for i in range(n):
+        value = 0
+        for l in lists:
+            value += l[i]
+        C[i] = value
+    return C
+
 class PolynomialSolver:
     def schoolbook(self, P, Q):
-        R = [0]*(2*max(len(P), len(Q)))
+        R = [0]*(len(P)+len(Q))
         for i in range(len(P)):
             for j in range(len(Q)):
                 R[i+j] = P[i] * Q[j]
         return R
 
-    def divide_conquer(self, P, Q, result=None):
-        if result is None: result = [0]*len(P)
+    def divide_conquer(self, P, Q):
+        n = len(P)
+        if(n <= 4):
+            return self.schoolbook(P, Q)
         P1, P2 = splitList(P)
         Q1, Q2 = splitList(Q)
-        A = divide_conquer(P1, Q1)
-        D = divide_conquer(P2, Q2)
-        P1P2 = [sum(x) for x in zip(P1, P2)]
-        Q1Q2 = [sum(x) for x in zip(Q1, Q2)]
-        E = divide_conquer(P1P2, Q1Q2)
+        A = self.divide_conquer(P1, Q1)
+        D = self.divide_conquer(P2, Q2)
+        E = self.divide_conquer(addLists(P1, P2), addLists(Q1, Q2))
+        BC = subLists([E, A, D])
         # A + (B+C)x^n/2 + Dx^n
-        return A
+        result = A + D
+        start = (len(result)-len(BC))//2
+        end = len(BC) + start
+        for i in range(start, end):
+            try: result[i] += BC.pop(0)
+            except Exception: return result
+        return result
         
 
     def getRandomPolynomial(self, n):
