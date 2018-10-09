@@ -13,7 +13,7 @@ def readData(filename):
         time = float(s[1])/10
         n_data.append(n)
         time_data.append(time)
-    return (time_data, n_data)
+    return (n_data, time_data)
 
 def graphData(data1, data2, graph_name):
     graph.plot(data1[0], data1[1], 'rx')
