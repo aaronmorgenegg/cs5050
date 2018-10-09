@@ -18,7 +18,7 @@ def readData(filename):
 def graphData(data1, data2, graph_name):
     graph.plot(data1[0], data1[1], 'rx')
     graph.plot(data2[0], data2[1], 'bx')
-#    graph.xscale("log")
+    graph.xscale("log")
     graph.yscale("log")
     graph.xlabel("Problem Size (n)")
     graph.ylabel("Average Runtime (s)")
