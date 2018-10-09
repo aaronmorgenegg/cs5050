@@ -1,6 +1,20 @@
 import matplotlib.pyplot as graph
+import numpy as np
+from scipy.optimize import curve_fit
 
 SHOW_GRAPHS = True
+
+def polyFunc(x, a, b, c):
+    return a * np.exp(b*x)+c
+
+def fitCurve(data, color):
+    graph.plot(data[0], data[1], color, label="Fitted Curve")
+    graph.xscale("log")
+    graph.yscale("log")
+    graph.xlabel("Problem Size (n)")
+    graph.ylabel("Average Runtime (s)")
+    graph.title("Performance of Polynomial Algorithms")
+    graph.grid(True)
 
 def readData(filename):
     with open(filename, "r") as myfile:
@@ -25,6 +39,10 @@ def graphData(data1, data2, graph_name):
     graph.title("Performance of Polynomial Algorithms")
     graph.grid(True)
     graph.savefig("{}.png".format(graph_name))
+    if(SHOW_GRAPHS): graph.show()
+    fitCurve(data1, 'r-')
+    fitCurve(data2, 'b-')
+    graph.savefig("{}_fitted.png".format(graph_name))
     if(SHOW_GRAPHS): graph.show()
 
 
