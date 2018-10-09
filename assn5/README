@@ -8,7 +8,7 @@ To run the empirical studies, run
 
 	python run_study.py
 
-This will output data to schoolbook_data.txt
+This will output data to the appropriate data file.
 
 To create a graph from this data, run
 
@@ -17,5 +17,7 @@ To create a graph from this data, run
 This will output a graph to schoolbook_graph.png
 
 The program has already been run and the resulting
-files are included in the homework submission
+files are included in the homework submission.
+Refer to schoolbook_data.txt, divide_conquer_data.txt, and
+the comparison graph files.
 
