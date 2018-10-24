@@ -18,6 +18,8 @@ This will output a graph to schoolbook_graph.png
 
 The program has already been run and the resulting
 files are included in the homework submission.
-Refer to schoolbook_data.txt, divide_conquer_data.txt, and
-the comparison graph files.
+Refer to schoolbook_data.txt, divide_conquer_data.txt, 
+fft_data.txt, and the comparison graph files.
+
+The analysis writeup is in writeup.txt
 

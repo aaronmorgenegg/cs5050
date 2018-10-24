@@ -23,7 +23,7 @@ def readData(filename):
     n_data = []
     for i in range(len(data)):
         s = data[i].split(",")
-        n = s[0]
+        n = int(s[0])
         time = float(s[1])/10
         n_data.append(n)
         time_data.append(time)
