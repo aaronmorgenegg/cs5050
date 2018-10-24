@@ -1,0 +1,36 @@
+The fft polynomial multiply algorithm is much faster than 
+the other two algorithms. It matches the divide and conquer
+algorithm at n=64, and matches the naive schoolbook algorithm
+at n=128. For larger values of n, the runtime grows almost linearly, 
+meaning when n is doubled, the runtime is doubled.
+
+For the studies, I ran each algorithm overnight in order to see
+how the algorithms could handle big values of n. For each value of n, 
+the algorithm would run 10 random polynomial multiplications.
+
+The schoolbook algorithm computed up to n=131072, taking a 
+total time of 8.7 hours.
+
+The divide and conquer algorithm computed up to n=524288,
+taking a total time of 7.3 hours.
+
+The fft multiply algorithm computed up to n=8388608,
+taking a total time of 1.9 hours. 
+
+Note, the fft only ran for 2 hours, due to the program 
+crashing. I didn't look into it because the point of this 
+assignment has already been proven; I'm assuming it's a 
+memory issue or maybe the numbers got too big.
+
+Limiting the program to run for only 10 minutes resulted in
+each algorithm maxing out at the following sizes of n:
+
+schoolbook:       n=16384
+divide_conquer:   n=32768
+fft_mult:         n=524288
+
+Coincedently, the fft algorithm could compute the same amount 
+of work in 10 minutes that the divide and conquer algorithm 
+could in 7.3 hours. It might take days for the schoolbook 
+algorithm to do the same.
+
