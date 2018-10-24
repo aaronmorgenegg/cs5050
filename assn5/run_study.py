@@ -10,5 +10,6 @@ from polynomial import *
 
 mySolver = PolynomialSolver()
 #mySolver.runStudy("schoolbook_data.txt", 1)
-mySolver.runStudy("divide_conquer_data.txt", 2)
+#mySolver.runStudy("divide_conquer_data.txt", 2)
+mySolver.runStudy("fft_data.txt", 3)
 

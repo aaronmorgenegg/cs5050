@@ -29,9 +29,10 @@ def readData(filename):
         time_data.append(time)
     return (n_data, time_data)
 
-def graphData(data1, data2, graph_name):
+def graphData(data1, data2, data3, graph_name):
     graph.plot(data1[0], data1[1], 'rx')
     graph.plot(data2[0], data2[1], 'bx')
+    graph.plot(data3[0], data3[1], 'gx')
     graph.xscale("log")
     graph.yscale("log")
     graph.xlabel("Problem Size (n)")
@@ -42,11 +43,13 @@ def graphData(data1, data2, graph_name):
     if(SHOW_GRAPHS): graph.show()
     fitCurve(data1, 'r-')
     fitCurve(data2, 'b-')
+    fitCurve(data3, 'g-')
     graph.savefig("{}_fitted.png".format(graph_name))
     if(SHOW_GRAPHS): graph.show()
 
 
 schoolbook_data = readData("schoolbook_data.txt")
 divide_conquer_data = readData("divide_conquer_data.txt")
-graphData(schoolbook_data, divide_conquer_data, "comparison_graph")
+fft_data = readData("fft_data.txt")
+graphData(schoolbook_data, divide_conquer_data, fft_data, "comparison_graph")
 

@@ -1,2 +1,0 @@
-At n=256, both algorithms have about the same performance. After that point, the divide and conquer algorithm has better performance. This means the schoolbook algorithm would be better to use for smaller problems. It would be easy to have a modified algorithm that uses the schoolbook function for problems smaller than 256, and the divide and conquer algorithm for larger values of n.
-
