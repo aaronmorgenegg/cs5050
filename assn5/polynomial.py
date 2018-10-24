@@ -44,6 +44,11 @@ def subLists(lists):
         C[i] = value
     return C
 
+def invertList(l):
+    for v in l:
+        v = 1/v
+
+
 class PolynomialSolver:
     def schoolbook(self, P, Q):
         R = [0]*(len(P)+len(Q))
@@ -71,16 +76,43 @@ class PolynomialSolver:
             except Exception: return result
         return result
 
-    def fft(self, P, Q):
+    def fft_poly_mult(self, P, Q):
         # TODO
         return self.schoolbook(P, Q)
+        n = len(P)
+        p_sol = self.fft(P, self.V, n)
+        q_sol = self.fft(Q, self.V, n)
+        pq_sol = [a*b for a,b in zip(p_sol,q_sol)] # for each item in p and q, multiply them element wise
+        pq = invertList(self.fft(pq_sol, self.Vin, n)) # inverse fft
+        return pq
+
+    def fft(P, V, n):
+        if n == 1:
+            return P[0]
+        
+        Peven = []
+        Podd = []
+        Vsquared = []
+        for i in range(n/2):
+            Peven.append(P[2*i])
+            Podd.append(P[2*i+1])
+            Vsquared.append(V[i]*V[i])
+        Sole = self.fft(Peven, Vsquared, n/2)
+        Solo = self.fft(Podd, Vsquared, n/2)
+        solution = [0]*n
+        for i in range(n/2):
+            solution[i] = Sole[i] + V[i]*Solo[i]
+            solution[i+n/2] = Sole[i] - V[i]*Solo[i]
+        return solution
 
     def computeOmegas(n):
         self.V = []
+        self.Vin = []
         for i in range(n):
-            value = cmath.cos(2j*math.pi/n) + j*cmath.cos(2j*math.pi/n)
+            value = cmath.cos(2j*math.pi/n) + j*cmath.sin(2j*math.pi/n)
             self.V.append(value)
-        
+            self.Vin.append(1/value)
+
     def getRandomPolynomial(self, n):
         polynomial = []
         for i in range(n):
@@ -113,5 +145,5 @@ class PolynomialSolver:
         if func_code == 2:
             return self.divide_conquer
         if func_code == 3:
-            return self.fft
+            return self.fft_poly_mult
 
