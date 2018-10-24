@@ -8,6 +8,8 @@
 
 import random
 import timeit
+import cmath
+import math
 
 MIN_COEFFICIENT = -1
 MAX_COEFFICIENT = 1
@@ -45,8 +47,8 @@ def subLists(lists):
     return C
 
 def invertList(l):
-    for v in l:
-        v = 1/v
+    t = [1/value for value in l]
+    return t
 
 
 class PolynomialSolver:
@@ -77,39 +79,38 @@ class PolynomialSolver:
         return result
 
     def fft_poly_mult(self, P, Q):
-        # TODO
-        return self.schoolbook(P, Q)
         n = len(P)
         p_sol = self.fft(P, self.V, n)
         q_sol = self.fft(Q, self.V, n)
         pq_sol = [a*b for a,b in zip(p_sol,q_sol)] # for each item in p and q, multiply them element wise
         pq = invertList(self.fft(pq_sol, self.Vin, n)) # inverse fft
+        print("pq <{}>".format(pq))
         return pq
 
-    def fft(P, V, n):
+    def fft(self, P, V, n):
+        n_half = n//2
         if n == 1:
-            return P[0]
-        
+            return P
         Peven = []
         Podd = []
         Vsquared = []
-        for i in range(n/2):
+        for i in range(n_half):
             Peven.append(P[2*i])
             Podd.append(P[2*i+1])
             Vsquared.append(V[i]*V[i])
-        Sole = self.fft(Peven, Vsquared, n/2)
-        Solo = self.fft(Podd, Vsquared, n/2)
+        Sole = self.fft(Peven, Vsquared, n_half)
+        Solo = self.fft(Podd, Vsquared, n_half)
         solution = [0]*n
-        for i in range(n/2):
+        for i in range(n_half):
             solution[i] = Sole[i] + V[i]*Solo[i]
-            solution[i+n/2] = Sole[i] - V[i]*Solo[i]
+            solution[i+n_half] = Sole[i] - V[i]*Solo[i]
         return solution
 
-    def computeOmegas(n):
+    def computeOmegas(self, n):
         self.V = []
         self.Vin = []
         for i in range(n):
-            value = cmath.cos(2j*math.pi/n) + j*cmath.sin(2j*math.pi/n)
+            value = complex(cmath.cos(2j*math.pi/n), cmath.sin(2j*math.pi/n))
             self.V.append(value)
             self.Vin.append(1/value)
 
