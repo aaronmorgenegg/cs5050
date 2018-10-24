@@ -84,7 +84,6 @@ class PolynomialSolver:
         q_sol = self.fft(Q, self.V, n)
         pq_sol = [a*b for a,b in zip(p_sol,q_sol)] # for each item in p and q, multiply them element wise
         pq = invertList(self.fft(pq_sol, self.Vin, n)) # inverse fft
-        print("pq <{}>".format(pq))
         return pq
 
     def fft(self, P, V, n):
