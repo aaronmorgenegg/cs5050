@@ -70,8 +70,17 @@ class PolynomialSolver:
             try: result[i] += BC.pop(0)
             except Exception: return result
         return result
-        
 
+    def fft(self, P, Q):
+        # TODO
+        return self.schoolbook(P, Q)
+
+    def computeOmegas(n):
+        self.V = []
+        for i in range(n):
+            value = cmath.cos(2j*math.pi/n) + j*cmath.cos(2j*math.pi/n)
+            self.V.append(value)
+        
     def getRandomPolynomial(self, n):
         polynomial = []
         for i in range(n):
@@ -87,6 +96,8 @@ class PolynomialSolver:
         algorithm = self._lookupFuncCode(func_code)
         while True:
             print("Running study with n = {}".format(n))
+            if func_code == 3:
+                self.computeOmegas(n)
             time = TimeFunction(self.runRandomTests, n, NUM_TESTS_EACH_STEP, algorithm)
             data = (n, time)
             self.saveData(data, filename)
@@ -101,4 +112,6 @@ class PolynomialSolver:
             return self.schoolbook
         if func_code == 2:
             return self.divide_conquer
+        if func_code == 3:
+            return self.fft
 
