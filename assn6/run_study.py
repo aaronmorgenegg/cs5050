@@ -32,10 +32,21 @@ def runBinaryStudy():
         iterateM(algorithm, binary_regular, "binary_regular")
 
 def runShakespeareStudy():
-    pass
+    if VERBOSITY > 1: print("Loading complete works of Shakespeare...")
+    shakespeare = loadFileToString(STRING_SHAKESPEARE)
+    print(type(shakespeare))
+    for algorithm in ALGORITHMS:
+        iterateM(algorithm, shakespeare, "shakespeare")
 
 def runDNAStudy():
-    pass
+    if VERBOSITY > 1: print("Loading DNA sequence string...")
+    dna = loadFileToString(STRING_DNA1)
+    for algorithm in ALGORITHMS:
+        iterateM(algorithm, dna, "dna")
+
+def loadFileToString(filename):
+    with open(filename, 'r') as myfile:
+        return myfile.read().replace('\n', '')
 
 def lookupAlgorithm(algorithm):
     if algorithm == "naive": return naive
