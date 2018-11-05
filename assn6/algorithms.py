@@ -11,9 +11,9 @@ def naive(text, pattern):
                 found_indices.append(i)
     return found_indices
 
-def KMP():
+def KMP(text, pattern):
     pass
 
-def BM():
+def BM(text, pattern):
     pass
 

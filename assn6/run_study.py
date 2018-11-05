@@ -50,8 +50,8 @@ def loadFileToString(filename):
 
 def lookupAlgorithm(algorithm):
     if algorithm == "naive": return naive
-    if algorithm == "kmp": return kmp
-    if algorithm == "bm": return bm
+    if algorithm == "kmp": return KMP
+    if algorithm == "bm": return BM
 
 def iterateM(algorithm, text, study):
     i = MIN_M
