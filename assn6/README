@@ -1,0 +1,18 @@
+Make sure you have python3 installed on your system and have installed the requirements.
+
+	pip install -r requirements.txt
+
+Run the tests with the following.
+
+	python test_string_search.py
+
+This will run 3 tests - 2 with simple pre-defined example strings, and 1 with a randomly generated string. Verify that the output to the console looks correct and that the strings have the same results.
+
+To run the studies and generate the output data, run
+
+	python run_study.py
+
+To generate graphs from the above data, run
+
+	python graph.py
+
