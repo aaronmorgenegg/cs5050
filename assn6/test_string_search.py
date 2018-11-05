@@ -33,3 +33,10 @@ test2_kmp = KMP(test_text2, test_pat2)
 test2_bm = BM(test_text2, test_pat2)
 prettyPrintMatches(test_text2, test_pat2, test2_naive, test2_naive==test2_kmp==test2_bm)
 
+test_text3 = generateString(length=30, p=0.5)
+test_pat3 = generateString(length=5, p=0.5)
+test3_naive = naive(test_text3, test_pat3)
+test3_kmp = KMP(test_text3, test_pat3)
+test3_bm = BM(test_text3, test_pat3)
+prettyPrintMatches(test_text3, test_pat3, test3_naive, test3_naive==test3_kmp==test3_bm)
+
