@@ -4,7 +4,7 @@ from binary_string_generator import *
 from algorithms import *
 from constants import *
 
-ALGORITHMS = ["naive"]
+ALGORITHMS = ["naive", "kmp"]
 
 def TimeFunction(function, *args):
     """
