@@ -1,0 +1,32 @@
+This string searching assignment was interesting because all of the 
+algorithms had different properties, and were not necessarily better 
+or worse than each other. Based on the type of problem, any one 
+algorithm could be better or worse than the others.
+
+For example, the the random binary string search, the BM algorithm 
+performed worse than the naive algorithm, while the KMP performed 
+better than the naive algorithm.
+
+For the binary regular string, the KMP performed the best, while 
+both the naive and BM algorithms grew as the pattern size increased. 
+In this case the BM and naive algorithms performed similarly.
+
+For the Shakespeare string, the BM algorithm really shined. It 
+actually became faster as the problem size increased. This means 
+that the shakespeare string was close to the best case for BM, where 
+the runtime is n/m, meaning the binary strings were close to the worst 
+case for the BM algorithm. The naive algorithm performed the worst, 
+with KMP close behind.
+
+The DNA string saw similar results to the Shakespeare string.
+
+Overall the results are similar to what would be expected from the 
+algorithms. From the analysis performed in class, we would expect 
+the KMP to be consistent, which it was. It was either very close to 
+or better than the naive algorithm, while performing well even in 
+cases that slowed the BM algorithm down.
+
+On the other hand, the BM algorithm was extremely quick for most 
+strings - meaning it is reaching its best case of n/m. However, 
+there are cases that cause it to slow down considerably as well.
+
