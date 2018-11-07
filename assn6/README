@@ -1,4 +1,10 @@
-Make sure you have python3 installed on your system and have installed the requirements.
+View writeup.txt for the description of the results.
+
+The data from the studies is stored in the output/ directory.
+
+The graphs from the above data is stored in the graphs/ directory.
+
+To run the code, make sure you have python3 installed on your system and have installed the requirements.
 
 	pip install -r requirements.txt
 
