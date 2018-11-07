@@ -1,3 +1,5 @@
+from constants import *
+
 
 def naive(text, pattern):
     found_indices = []
@@ -56,6 +58,32 @@ def computeLPSArray(pattern, m, lps):
                 lps[i] = 0
                 i += 1
 
+def badCharHeuristic(string, size):
+    bad_char = [-1]*NUM_CHARS
+    for i in range(size):
+        bad_char[ord(string[i])] = i
+    return bad_char
+
 def BM(text, pattern):
-    return naive(text, pattern)
+    """https://www.geeksforgeeks.org/boyer-moore-algorithm-for-pattern-searching/"""
+    m = len(pattern)
+    n = len(text)
+    found_indices = []
+
+    bad_char = badCharHeuristic(pattern, m)
+
+    s = 0
+    while (s<= n-m):
+        j = m-1
+
+        while j >= 0 and pattern[j] == text[s+j]:
+            j -= 1
+
+        if j<0:
+            found_indices.append(s)
+            s += (m-bad_char[ord(text[s+m])] if s+m<n else 1)
+        else:
+            s += max(1, j-bad_char[ord(text[s+j])])
+
+    return found_indices
 

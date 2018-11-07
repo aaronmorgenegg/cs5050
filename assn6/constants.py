@@ -5,4 +5,5 @@ MIN_M = 8
 MAX_M = 1024
 FILENAME_ROOT = "output/{}_{}.txt"
 VERBOSITY = 3
+NUM_CHARS = 256
 
