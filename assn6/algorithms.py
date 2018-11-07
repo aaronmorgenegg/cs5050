@@ -61,7 +61,10 @@ def computeLPSArray(pattern, m, lps):
 def badCharHeuristic(string, size):
     bad_char = [-1]*NUM_CHARS
     for i in range(size):
-        bad_char[ord(string[i])] = i
+        try:
+            bad_char[ord(string[i])] = i
+        except IndexError:
+            pass
     return bad_char
 
 def BM(text, pattern):

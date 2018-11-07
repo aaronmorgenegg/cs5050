@@ -16,7 +16,7 @@ def TimeFunction(function, *args):
     return timeit.default_timer() - start_time
 
 def RunStudy():
-    #runBinaryStudy()
+    runBinaryStudy()
     runShakespeareStudy()
     runDNAStudy()
 
