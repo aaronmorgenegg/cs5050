@@ -16,7 +16,7 @@ def TimeFunction(function, *args):
     return timeit.default_timer() - start_time
 
 def RunStudy():
-    runBinaryStudy()
+    #runBinaryStudy()
     runShakespeareStudy()
     runDNAStudy()
 
@@ -34,7 +34,6 @@ def runBinaryStudy():
 def runShakespeareStudy():
     if VERBOSITY > 1: print("Loading complete works of Shakespeare...")
     shakespeare = loadFileToString(STRING_SHAKESPEARE)
-    print(type(shakespeare))
     for algorithm in ALGORITHMS:
         iterateM(algorithm, shakespeare, "shakespeare")
 
@@ -46,7 +45,7 @@ def runDNAStudy():
 
 def loadFileToString(filename):
     with open(filename, 'r') as myfile:
-        return myfile.read().replace('\n', '')
+        return myfile.read()
 
 def lookupAlgorithm(algorithm):
     if algorithm == "naive": return naive

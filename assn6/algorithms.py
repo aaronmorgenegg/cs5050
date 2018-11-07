@@ -81,9 +81,15 @@ def BM(text, pattern):
 
         if j<0:
             found_indices.append(s)
-            s += (m-bad_char[ord(text[s+m])] if s+m<n else 1)
+            try:
+                s += (m-bad_char[ord(text[s+m])] if s+m<n else 1)
+            except IndexError:
+                s += 1
         else:
-            s += max(1, j-bad_char[ord(text[s+j])])
+            try:
+                s += max(1, j-bad_char[ord(text[s+j])])
+            except IndexError:
+                s += 1
 
     return found_indices
 
