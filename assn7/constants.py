@@ -1,0 +1,1 @@
+DISTANCE_FILE_ROOT = "sample_problems/{}_d.txt"
