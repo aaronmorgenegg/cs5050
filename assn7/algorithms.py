@@ -11,7 +11,7 @@ class Algorithm:
 
     def invoke(self):
         self._recurse([0], [i for i in range(1, len(self.TSP.distances))])
-        if VERBOSITY > 1: print("{} algorithm found a solution of length {} in {} seconds, compared to the best possible solution of {}".format(self.__class__.__name__, self.best_so_far, self.time_constraint, self.TSP.absolute_best_distance))
+        if VERBOSITY > 1: print("{}: {} algorithm found a solution of length {} in {} seconds, compared to the best possible solution of {}".format(self.TSP.name, self.__class__.__name__, self.best_so_far, self.time_constraint, self.TSP.absolute_best_distance))
         return self.best_so_far
 
     def outOfTime(self):
@@ -42,16 +42,21 @@ class BoundingBacktrack(Algorithm):
             for city in remaining_cities:
                 self._recurse(tour+[city], [x for x in remaining_cities if x != city])
 
-def boundingBacktrack(TSP, time_constraint=TIME_LIMIT):
-    start_time = Timer.getCurrentTime()
-    while Timer.getCurrentTime()-start_time < TIME_LIMIT:
-        pass
 
+class GreedyExpansionBacktrack(Algorithm):
+    def _recurse(self, tour, remaining_cities):
+        if self.outOfTime(): return
+        if len(remaining_cities) == 0:
+            self.best_so_far = min(self.best_so_far, self.TSP.computeDistance(tour))
+        else:
+            if self.TSP.computeDistance(tour) > self.best_so_far: return # Bounding against best solution so far
+            # Greedy expansion - recursively explore routes to closer cities first
+            sorted_remaining_cities = self._sortClosestCities(tour[-1], remaining_cities)
+            for city in sorted_remaining_cities:
+                self._recurse(tour+[city], [x for x in sorted_remaining_cities if x != city])
 
-def greedyExpansionBacktrack(TSP, time_constraint=TIME_LIMIT):
-    start_time = Timer.getCurrentTime()
-    while Timer.getCurrentTime()-start_time < TIME_LIMIT:
-        pass
+    def _sortClosestCities(self, city, remaining_cities):
+        return sorted(remaining_cities, key=lambda x: self.TSP.distances[city][x])
 
 
 def hillClimbSwap(TSP, time_constraint=TIME_LIMIT):
