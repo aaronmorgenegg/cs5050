@@ -59,13 +59,11 @@ class GreedyExpansionBacktrack(Algorithm):
         return sorted(remaining_cities, key=lambda x: self.TSP.distances[city][x])
 
 
-def hillClimbSwap(TSP, time_constraint=TIME_LIMIT):
-    start_time = Timer.getCurrentTime()
-    while Timer.getCurrentTime()-start_time < TIME_LIMIT:
+class HillClimbSwap(Algorithm):
+    def _recurse(self, tour, remaining_cities):
         pass
 
 
-def hillClimbReverse(TSP, time_constraint=TIME_LIMIT):
-    start_time = Timer.getCurrentTime()
-    while Timer.getCurrentTime()-start_time < TIME_LIMIT:
+class HillClimbReverse(Algorithm):
+    def _recurse(self, tour, remaining_cities):
         pass
