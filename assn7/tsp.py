@@ -10,7 +10,7 @@ class TSP:
         distance = 0
         for i in range(len(tour)):
             try:
-                distance += self.distances[i][i-1]
+                distance += self.distances[i][i+1]
             except IndexError:
-                pass
+                distance += self.distances[i][tour[0]]
         return distance

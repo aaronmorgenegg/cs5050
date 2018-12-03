@@ -63,7 +63,8 @@ class GreedyExpansionBacktrack(Algorithm):
 
 class HillClimbSwap(Algorithm):
     def _recurse(self, tour, remaining_cities):
-        solution = random.shuffle([remaining_cities] + [tour])
+        solution = remaining_cities + tour
+        random.shuffle(solution)
         distance = self.TSP.computeDistance(solution)
         if distance < self.best_so_far: self.best_so_far = distance
         stuck_counter = STUCK_COUNT
@@ -90,6 +91,8 @@ class HillClimbReverse(HillClimbSwap):
     # Same as HillClimbSwap but uses a different mutation process
     def _mutate(self, tour, indexes):
         indexes.sort()
+        start = indexes[0]
+        end = indexes[1]+1
         new_tour = list(tour)
-        new_tour[indexes[0]:indexes[1]] = new_tour[indexes[0]:indexes[1]][::-1]
+        new_tour[start:end] = reversed(new_tour[start:end])
         return new_tour
