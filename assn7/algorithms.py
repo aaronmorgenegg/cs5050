@@ -1,4 +1,6 @@
-from constants import TIME_LIMIT, VERBOSITY
+import random
+
+from constants import TIME_LIMIT, VERBOSITY, STUCK_COUNT
 from timer import Timer
 
 
@@ -61,9 +63,33 @@ class GreedyExpansionBacktrack(Algorithm):
 
 class HillClimbSwap(Algorithm):
     def _recurse(self, tour, remaining_cities):
-        pass
+        solution = random.shuffle([remaining_cities] + [tour])
+        distance = self.TSP.computeDistance(solution)
+        if distance < self.best_so_far: self.best_so_far = distance
+        stuck_counter = STUCK_COUNT
+        while stuck_counter > 0:
+            if self.outOfTime(): return
+            indexes = random.sample(range(0, len(solution)), 2) # gives list of 2 indexes to swap
+            new_solution = self._mutate(solution, indexes)
+            new_distance = self.TSP.computeDistance(new_solution)
+            if new_distance <= distance:
+                solution = new_solution
+                stuck_counter = STUCK_COUNT
+                if new_distance <= self.best_so_far:
+                    self.best_so_far = new_distance
+            stuck_counter -= 1
+        self._recurse(tour, remaining_cities)
+
+    def _mutate(self, tour, indexes):
+        new_tour = list(tour)
+        new_tour[indexes[0]], new_tour[indexes[1]] = new_tour[indexes[1]], new_tour[indexes[0]]
+        return new_tour
 
 
-class HillClimbReverse(Algorithm):
-    def _recurse(self, tour, remaining_cities):
-        pass
+class HillClimbReverse(HillClimbSwap):
+    # Same as HillClimbSwap but uses a different mutation process
+    def _mutate(self, tour, indexes):
+        indexes.sort()
+        new_tour = list(tour)
+        new_tour[indexes[0]:indexes[1]] = new_tour[indexes[0]:indexes[1]][::-1]
+        return new_tour
