@@ -1,0 +1,15 @@
+Assignment Nine: NP complete problem TSP
+
+To run the code, ensure that python3 is installed on your system
+
+Install the requirements 
+	
+	pip install -r requirements.txt
+
+Run the study
+
+	python run_study.py
+
+The study has already been run with all 5 algorithms and all 5 sample problems.
+The resulting graph can be found in results.png
+
