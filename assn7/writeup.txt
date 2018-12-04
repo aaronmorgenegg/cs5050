@@ -1,0 +1,12 @@
+According to the results graph, the backtrack algorithms performed
+nearly identical to each other, while the hill climb algorithms
+performed nearly identical to each other. However, overall the
+hill climb algorithms outperformed the backtrack algorithms.
+
+In the att48, dantzig42, and gr17 problem sets, all of the 
+algorithms reached the same degree of accuracy. However, 
+the hill climb algorithms reached a better degree of accuracy 
+for the p01 and fri26 problem sets. Given these results, I 
+would conclude that either one of the hill climb algorithms
+would be the best choice to solve a TSP problem. 
+
